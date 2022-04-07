@@ -5,6 +5,7 @@ namespace Onyx\Persistence\DTOHydrators;
 use Onyx\Persistence\Fields;
 use Onyx\Persistence\TestDto;
 use Onyx\Persistence\DTOHydrator;
+use Onyx\Persistence\Exceptions\InvalidDataException;
 
 require_once __DIR__ . '/../TestDto.php';
 require_once __DIR__ . '/Transformers.php';
@@ -49,10 +50,11 @@ class ByFieldTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider providerTestErrors
-     * @expectedException \Onyx\Persistence\Exceptions\InvalidDataException
+     *
      */
     public function testHydrateWithExceptions(array $dataset)
     {
+        $this->expectException(InvalidDataException::class);
         $hydrator = new ByField($this->getFields());
         $hydrator->enableExceptions();
 

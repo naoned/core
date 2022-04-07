@@ -21,22 +21,18 @@ class SynchronousTest extends TestCase
         $this->assertSame($data, $tracker->retrieveTrackedData($trackingId));
     }
 
-    /**
-     * @expectedException \LogicException
-     */
     public function testTrackSameIdMoreThanOnce()
     {
+        $this->expectException(\LogicException::class);
         $tracker = new Synchronous();
 
         $tracker->track('pony-burger', []);
         $tracker->track('pony-burger', []);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testRetrieveUnknownTrackedData()
     {
+        $this->expectException(\RuntimeException::class);
         $tracker = new Synchronous();
 
         $tracker->retrieveTrackedData('pony-burger');

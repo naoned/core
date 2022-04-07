@@ -12,7 +12,7 @@ class MemoryTest extends TestCase
         $files,
         $chunk;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->files = array(
             'image.jpg' => 'assets/image.jpg',

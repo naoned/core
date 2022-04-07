@@ -3,6 +3,7 @@
 namespace Onyx\Persistence\Fields;
 
 use Onyx\Persistence\Field;
+use Onyx\Persistence\Exceptions\InvalidDataException;
 
 class BooleanTest extends \PHPUnit\Framework\TestCase
 {
@@ -93,10 +94,10 @@ class BooleanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider providerTestConvertWithExceptions
-     * @expectedException \Onyx\Persistence\Exceptions\InvalidDataException
      */
     public function testConvertWithExceptions(Field $field, $value)
     {
+        $this->expectException(InvalidDataException::class);
         $field->convert($value);
     }
 

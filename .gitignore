@@ -16,3 +16,4 @@ vendor/
 # Analysis reports
 #================================================
 coverage/
+.phpunit.result.cache

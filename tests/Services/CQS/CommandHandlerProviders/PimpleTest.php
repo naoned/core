@@ -15,20 +15,16 @@ class PimpleTest extends TestCase
     private const
         NAMESPACE = 'CQS\Commands';
 
-    /**
-     * @expectedException \LogicException
-     */
     public function testNoHandlerFoundException()
     {
+        $this->expectException(\LogicException::class);
         $provider = new Pimple(new Container(), self::NAMESPACE);
         $provider->findCommandHandlerFor(new NullCommand());
     }
 
-    /**
-     * @expectedException \UnexpectedValueException
-     */
     public function testBadHandlerTypeException()
     {
+        $this->expectException(\UnexpectedValueException::class);
         $expectedHandler = new class {};
 
         $container = new Container([

@@ -2,12 +2,14 @@
 
 namespace Onyx\Persistence\Fields;
 
+use Onyx\Persistence\Exceptions\InvalidDataException;
+
 class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
     private
         $field;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->field = new DateTime('test', DateTime::MYSQL_FORMAT);
     }
@@ -31,10 +33,10 @@ class DateTimeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider providerTestConvertWithExceptions
-     * @expectedException \Onyx\Persistence\Exceptions\InvalidDataException
      */
     public function testConvertWithExceptions($value)
     {
+        $this->expectException(InvalidDataException::class);
         $this->field->convert($value);
     }
 

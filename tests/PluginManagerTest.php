@@ -140,7 +140,7 @@ class PluginManagerTest extends TestCase
         $commandContainer,
         $extension;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configuration = new Memory([
             'plugins/enabled' => [
@@ -218,11 +218,9 @@ class PluginManagerTest extends TestCase
         $this->assertTrue($this->extension->called);
     }
 
-    /**
-     * @expectedException \Puzzle\Configuration\Exceptions\NotFound
-     */
     public function testLoadWithNoConfigurationSystem()
     {
+        $this->expectException(\Puzzle\Configuration\Exceptions\NotFound::class);
         $manager = new PluginManager($this->configuration, $this->viewManager, $this->serviceContainer);
         $manager->load();
 
@@ -234,11 +232,9 @@ class PluginManagerTest extends TestCase
         return $this->assertSame($expected, $this->stackedConfiguration->readRequired($key));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testLoadWithInvalidConfiguration()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $configuration = new Memory([
             'plugins/enabled' => 39,
             'global' => 42
@@ -257,11 +253,11 @@ class PluginManagerTest extends TestCase
     }
 
     /**
-     * @expectedException \LogicException
      * @dataProvider providerTestLoadConsoleWithInvalidCommandsDefinitions
      */
     public function testLoadConsoleWithInvalidCommandsDefinitions(Configuration $configuration)
     {
+        $this->expectException(\LogicException::class);
         $manager = new PluginManager($configuration, $this->viewManager, $this->serviceContainer);
         $manager->loadConsole($this->commandContainer);
     }

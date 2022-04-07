@@ -36,11 +36,9 @@ class ServiceNameComputerTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testComputeException()
     {
+        $this->expectException(\RuntimeException::class);
         $classNamespace = 'Onyx\Domain\Queries\Page\PageQuery';
 
         $serviceNameComputer = new ServiceNameComputer('Pony\Burger');

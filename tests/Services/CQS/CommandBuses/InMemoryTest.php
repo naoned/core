@@ -14,7 +14,7 @@ class InMemoryTest extends TestCase
         $command1,
         $command2;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command1 = new class implements Command{};
         $this->command2 = new class implements Command{};

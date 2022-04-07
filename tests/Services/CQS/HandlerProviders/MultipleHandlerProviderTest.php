@@ -13,6 +13,7 @@ use Onyx\Services\CQS\QueryResult;
 use Onyx\Services\CQS\CommandHandler;
 use Onyx\Services\CQS\Command;
 use Onyx\Services\CQS\Commands\NullCommand;
+use Onyx\Services\CQS\HandlerProviders\Exceptions\NoValidHandlerFound;
 
 class MultipleHandlerProviderTest extends TestCase
 {
@@ -20,7 +21,7 @@ class MultipleHandlerProviderTest extends TestCase
         $emptyProvider,
         $provider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $containerQ1 = new Container();
         $containerQ2 = new Container([
@@ -75,19 +76,15 @@ class MultipleHandlerProviderTest extends TestCase
         $this->assertEquals($this->nullCommandHandler(), $handler);
     }
 
-    /**
-     * @expectedException \Onyx\Services\CQS\HandlerProviders\Exceptions\NoValidHandlerFound
-     */
     public function testQueryHandlerNotFound()
     {
+        $this->expectException(NoValidHandlerFound::class);
         $this->emptyProvider->findQueryHandlerFor(new NullQuery());
     }
 
-    /**
-     * @expectedException \Onyx\Services\CQS\HandlerProviders\Exceptions\NoValidHandlerFound
-     */
     public function testCommandHandlerNotFound()
     {
+        $this->expectException(NoValidHandlerFound::class);
         $this->emptyProvider->findCommandHandlerFor(new NullCommand());
     }
 }

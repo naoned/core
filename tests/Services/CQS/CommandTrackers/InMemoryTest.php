@@ -12,7 +12,7 @@ class InMemoryTest extends TestCase
         $tracker,
         $data;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->data = [
             'speed' => 'rene',
@@ -38,11 +38,9 @@ class InMemoryTest extends TestCase
         $this->assertEquals('taupe', $this->tracker->retrieveTrackedData('rene'));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testRetrieveUnknownData()
     {
+        $this->expectException(\RuntimeException::class);
         $this->tracker->retrieveTrackedData('unknown-data');
     }
 }

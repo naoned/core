@@ -13,23 +13,20 @@ use Onyx\Services\CQS\Queries\NullQuery;
 use Onyx\Services\CQS\Commands\NullCommand;
 use Onyx\Services\CQS\CommandHandler;
 use Onyx\Services\CQS\Command;
+use Onyx\Services\CQS\HandlerProviders\Exceptions\NoValidHandlerFound;
 
 class PimpleClassBasedTest extends TestCase
 {
-    /**
-     * @expectedException \Onyx\Services\CQS\HandlerProviders\Exceptions\NoValidHandlerFound
-     */
     public function testNoQueryHandlerFoundException()
     {
+        $this->expectException(NoValidHandlerFound::class);
         $provider = new PimpleClassBased(new Container());
         $provider->findQueryHandlerFor(new NullQuery());
     }
 
-    /**
-     * @expectedException \UnexpectedValueException
-     */
     public function testWrongQueryHandlerTypeException()
     {
+        $this->expectException(\UnexpectedValueException::class);
         $container = new Container([
             NullQuery::class => new \stdClass(),
         ]);
@@ -54,20 +51,17 @@ class PimpleClassBasedTest extends TestCase
 
         $this->assertSame($expectedHandler, $handler);
     }
-    /**
-     * @expectedException \LogicException
-     */
+
     public function testNoCommandHandlerFoundException()
     {
+        $this->expectException(\LogicException::class);
         $provider = new PimpleClassBased(new Container());
         $provider->findCommandHandlerFor(new NullCommand());
     }
 
-    /**
-     * @expectedException \UnexpectedValueException
-     */
     public function testWrongCommandHandlerTypeException()
     {
+        $this->expectException(\UnexpectedValueException::class);
         $container = new Container([
             NullCommand::class => new \stdClass(),
         ]);

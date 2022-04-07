@@ -15,7 +15,7 @@ class InMemoryTest extends TestCase
         $query1,
         $query2;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->query1 = new class implements Query{};
         $this->query2 = new class implements Query{};
